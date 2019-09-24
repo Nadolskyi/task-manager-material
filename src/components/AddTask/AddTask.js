@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Modal, Form, Button } from 'react-bootstrap';
+import { Modal, Form } from 'react-bootstrap';
 import { ListContext } from '../../contexts/ListContext';
+import Button from '@material-ui/core/Button';
 
 class AddTask extends Component {
   constructor(props) {
@@ -81,10 +82,10 @@ class AddTask extends Component {
             </Form>
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={this.handleClose}>
+            <Button variant="contained" onClick={this.handleClose}>
               Close
             </Button>
-            <Button onClick={this.handleAdd} className="btn btn-primary">
+            <Button variant="contained" color="primary" onClick={this.handleAdd} className="btn btn-primary">
               Add
             </Button>
           </Modal.Footer>

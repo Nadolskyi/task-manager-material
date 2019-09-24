@@ -3,7 +3,9 @@ import { Row, ListGroup, Col } from 'react-bootstrap'
 import ConfirmDeleteForm from './ConfirmDeleteForm/ConfirmDeleteForm.js'
 import EditTask from './EditTask/EditTask.js'
 import { ListContext } from '../../contexts/ListContext.js';
-import './ListTask.css'
+import './ListTask.css';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 
 const ListTask = () => {
 
@@ -11,7 +13,7 @@ const ListTask = () => {
   const showListDone = (isDone) => {
     return tasks.map((task, i) => {
       if (task.isDone === isDone) {
-        return <ListGroup.Item
+        return <List
           key={i}
           className="draggable-elem"
           draggable
@@ -21,7 +23,7 @@ const ListTask = () => {
             <ConfirmDeleteForm index={i} />
             <EditTask task={tasks[i]} index={i} />
           </Row>
-        </ListGroup.Item>
+        </List>
       }
     })
   }
@@ -30,15 +32,15 @@ const ListTask = () => {
     <Row>
       <Col>
         <h4>{'Active'}</h4>
-        <ListGroup>
+        <List>
           {showListDone(false)}
-        </ListGroup>
+        </List>
       </Col>
       <Col>
         <h4>{'Done'}</h4>
-        <ListGroup>
+        <List>
           {showListDone(true)}
-        </ListGroup>
+        </List>
       </Col>
     </Row>
   );
