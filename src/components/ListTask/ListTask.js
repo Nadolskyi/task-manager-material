@@ -8,8 +8,11 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 
 const ListTask = () => {
-
-  const { tasks } = useContext(ListContext);
+  const onDragStart = (e, text) => {
+    console.log('text: ', text)
+    e.dataTransfer.setData("text", text)
+  }
+  const { tasks, dispatch } = useContext(ListContext);
   const showListDone = (isDone) => {
     return tasks.map((task, i) => {
       if (task.isDone === isDone) {
@@ -17,6 +20,7 @@ const ListTask = () => {
           key={i}
           className="draggable-elem"
           draggable
+          onDragStart={(e) => onDragStart(e, task.text)}
         >
           {task.text}
           <Row>
@@ -28,15 +32,41 @@ const ListTask = () => {
     })
   }
 
+  const onDragOver = (e) => {
+    e.preventDefault();
+  }
+
+  const onDrop = (e, isDone) => {
+    let text = e.dataTransfer.getData("text");
+    tasks.filter((task, i) => {
+      if (task.text === text) {
+        task.isDone = isDone;
+        dispatch({
+          type: 'EDIT_BOOK',
+          index: i,
+          task: task.text,
+          isDone: isDone
+        })
+      }
+    })
+    console.log('text', tasks)
+  }
+
   return (
     <Row>
-      <Col>
+      <Col
+        onDragOver={(e) => onDragOver(e)}
+        onDrop={(e) => onDrop(e, false)}
+      >
         <h4>{'Active'}</h4>
         <List>
           {showListDone(false)}
         </List>
       </Col>
-      <Col>
+      <Col
+        onDragOver={(e) => onDragOver(e)}
+        onDrop={(e) => onDrop(e, true)}
+      >
         <h4>{'Done'}</h4>
         <List>
           {showListDone(true)}
