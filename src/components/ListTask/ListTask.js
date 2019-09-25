@@ -41,15 +41,9 @@ const ListTask = () => {
     tasks.filter((task, i) => {
       if (task.text === text) {
         task.isDone = isDone;
-        dispatch({
-          type: 'EDIT_BOOK',
-          index: i,
-          task: task.text,
-          isDone: isDone
-        })
+        dispatch({ type: 'EDIT_BOOK' })
       }
     })
-    console.log('text', tasks)
   }
 
   return (
