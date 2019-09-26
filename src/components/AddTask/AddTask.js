@@ -1,7 +1,16 @@
 import React, { Component } from 'react'
-import { Modal, Form } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 import { ListContext } from '../../contexts/ListContext';
-import Button from '@material-ui/core/Button';
+import {
+  Button,
+  TextField,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Checkbox,
+  FormGroup
+} from '@material-ui/core';
 
 class AddTask extends Component {
   constructor(props) {
@@ -51,46 +60,42 @@ class AddTask extends Component {
 
   render() {
     return (
-      <div className="row">
+      <Row>
         <div className="col-sm-8">
           <h3 className="AddTask-header">React Task Manager</h3>
         </div>
         <div className="col-sm-4">
-          <button type="button" className="btn btn-success AddTask-button" onClick={this.handleShow}>Add</button>
+          <Button variant="contained" color="primary" onClick={this.handleShow}>Add</Button>
         </div>
-        <Modal show={this.state.show} onHide={this.handleClose}>
-          <Modal.Header>
-            <Modal.Title>React Task Manager</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form onSubmit={this.handleAdd}>
-              <Form.Group>
-                <Form.Control
-                  type="text"
-                  value={this.state.taskText}
-                  onChange={this.handleChange}
-                  id="inputTask"
-                  placeholder="Enter task to add"
-                />
-                <Form.Check
-                  type="checkbox"
-                  checked={this.state.isDone}
-                  label={this.state.isDone ? "Move to active" : "Checked as done"}
-                  onChange={this.changeStatus.bind(this)}
-                />
-              </Form.Group>
-            </Form>
-          </Modal.Body>
-          <Modal.Footer>
+        <Dialog open={this.state.show}>
+          <DialogTitle> React Task Manager </DialogTitle>
+          <DialogContent>
+            <FormGroup onSubmit={this.handleAdd}>
+              <TextField
+                type="text"
+                value={this.state.taskText}
+                onChange={this.handleChange}
+                id="inputTask"
+                placeholder="Enter task to add"
+              />
+              <Checkbox
+                value={this.state.isDone}
+                onChange={this.changeStatus.bind(this)}
+              >
+                {this.state.isDone ? "Move to active" : "Checked as done"}
+              </Checkbox>
+            </FormGroup >
+          </DialogContent>
+          <DialogActions>
             <Button variant="contained" onClick={this.handleClose}>
               Close
             </Button>
             <Button variant="contained" color="primary" onClick={this.handleAdd} className="btn btn-primary">
               Add
             </Button>
-          </Modal.Footer>
-        </Modal>
-      </div>
+          </DialogActions>
+        </Dialog>
+      </Row>
     );
   }
 }

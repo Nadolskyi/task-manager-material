@@ -1,15 +1,13 @@
 import React, { useContext } from 'react'
-import { Row, ListGroup, Col } from 'react-bootstrap'
+import { Row, Col } from 'react-bootstrap'
 import ConfirmDeleteForm from './ConfirmDeleteForm/ConfirmDeleteForm.js'
 import EditTask from './EditTask/EditTask.js'
 import { ListContext } from '../../contexts/ListContext.js';
 import './ListTask.css';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 
 const ListTask = () => {
   const onDragStart = (e, text) => {
-    console.log('text: ', text)
     e.dataTransfer.setData("text", text)
   }
   const { tasks, dispatch } = useContext(ListContext);
